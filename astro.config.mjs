@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://aizyeee.github.io',
+  site: 'https://lukaizyeee.github.io',
   integrations: [sitemap()],
   i18n: {
     defaultLocale: 'en',
