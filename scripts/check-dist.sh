@@ -3,6 +3,7 @@
 set -euo pipefail
 EXPECTED=(
   index.html
+  dev/components/index.html
 )
 missing=0
 for f in "${EXPECTED[@]}"; do

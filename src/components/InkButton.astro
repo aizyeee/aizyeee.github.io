@@ -1,0 +1,25 @@
+---
+// src/components/InkButton.astro
+interface Props { href: string; label: string; }
+const { href, label } = Astro.props;
+---
+<a class="ink-btn" href={href}>{label}</a>
+<style>
+  .ink-btn {
+    display: inline-block;
+    border: var(--line) solid var(--ink);
+    border-radius: 10px;
+    padding: 11px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+    transition: all .22s var(--ease-out);
+  }
+  .ink-btn:hover {
+    background: var(--ink);
+    color: var(--bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 0 var(--accent);
+  }
+</style>

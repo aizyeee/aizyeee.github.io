@@ -1,0 +1,24 @@
+---
+// src/components/OffsetCard.astro
+interface Props { href?: string; variant?: 'white' | 'lavender'; }
+const { href, variant = 'white' } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag class:list={['offset-card', variant]} href={href}>
+  <slot />
+</Tag>
+<style>
+  .offset-card {
+    display: block;
+    background: var(--card);
+    border: var(--line) solid var(--ink);
+    border-radius: 12px;
+    padding: 20px 22px;
+    transition: all .22s var(--ease-out);
+  }
+  .offset-card.lavender { background: var(--surface); }
+  .offset-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 5px 5px 0 0 var(--ink);
+  }
+</style>
