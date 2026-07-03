@@ -1,0 +1,30 @@
+---
+// src/components/ProjectCard.astro
+import type { CollectionEntry } from 'astro:content';
+import OffsetCard from './OffsetCard.astro';
+import { localePath, type Locale } from '../i18n/ui';
+interface Props { project: CollectionEntry<'projects'>; locale: Locale; featured?: boolean; }
+const { project, locale, featured = false } = Astro.props;
+const slug = project.id.split('/')[1]; // 'en/contract-review' → 'contract-review'
+const href = localePath(locale, `/projects/${slug}`);
+const variant = project.data.order % 2 === 0 ? 'lavender' : 'white';
+---
+<OffsetCard href={href} variant={featured ? variant : 'white'}>
+  <p class="cat">{project.data.role} · {project.data.period}</p>
+  <h4>{project.data.title}</h4>
+  {featured && (
+    <>
+      <p class="summary">{project.data.summary}</p>
+      <p class="chips">
+        {project.data.tech.map((t) => <span class="mono-chip">{t}</span>)}
+        {project.data.metrics.map((m) => <span class="mono-chip mono-chip--outline">{m}</span>)}
+      </p>
+    </>
+  )}
+</OffsetCard>
+<style>
+  .cat { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+  h4 { font-size: 17px; margin-bottom: 6px; }
+  .summary { font-size: 13.5px; color: var(--text-3); line-height: 1.6; margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+</style>

@@ -9,6 +9,12 @@ EXPECTED=(
   blog/hello-astro/index.html
   blog/di-yi-pian/index.html
   rss.xml
+  projects/index.html
+  zh/projects/index.html
+  projects/contract-review/index.html
+  projects/lighter/index.html
+  zh/projects/contract-review/index.html
+  zh/projects/lighter/index.html
 )
 missing=0
 for f in "${EXPECTED[@]}"; do
