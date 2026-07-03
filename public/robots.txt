@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aizyeee.github.io/sitemap-index.xml

@@ -22,6 +22,9 @@ EXPECTED=(
   zh/about/index.html
   404.html
   resume.pdf
+  sitemap-index.xml
+  robots.txt
+  favicon.svg
 )
 missing=0
 for f in "${EXPECTED[@]}"; do
