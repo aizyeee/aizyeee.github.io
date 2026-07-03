@@ -1,2 +1,26 @@
 .superpowers/
 .DS_Store
+
+# build output
+dist/
+# generated types
+.astro/
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# jetbrains setting folder
+.idea/
+
+# personal files with PII (kept on disk, never committed)
+/张子灏_技术简历.pdf
+/自我介绍.md
