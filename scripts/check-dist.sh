@@ -16,6 +16,12 @@ EXPECTED=(
   zh/projects/contract-review/index.html
   zh/projects/lighter/index.html
   zh/index.html
+  now/index.html
+  zh/now/index.html
+  about/index.html
+  zh/about/index.html
+  404.html
+  resume.pdf
 )
 missing=0
 for f in "${EXPECTED[@]}"; do
