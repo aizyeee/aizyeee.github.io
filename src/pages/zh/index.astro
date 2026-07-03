@@ -1,0 +1,48 @@
+---
+// src/pages/zh/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CascadeGroup from '../../components/CascadeGroup.astro';
+import CircleAnnotation from '../../components/CircleAnnotation.astro';
+import InkButton from '../../components/InkButton.astro';
+import SectionRule from '../../components/SectionRule.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import PostList from '../../components/PostList.astro';
+import { localePath } from '../../i18n/ui';
+
+const projects = (await getCollection('projects', (e) => e.id.startsWith('zh/') && e.data.featured))
+  .sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
+---
+<BaseLayout locale="zh" title="张子灏 — AI 系统" description="上海交通大学本科生，构建可靠的 AI 系统，走向 OS × AI。" altHref="/">
+  <CascadeGroup>
+    <p class="kicker">AI 系统 · 上海交大 ECE '28 · 上海</p>
+    <h1 class="headline">构建经得起考验的 AI 系统 — 走向
+      <CircleAnnotation delay={1150}>OS × AI</CircleAnnotation></h1>
+    <p class="sub">我是上海交通大学的本科生。我构建带检索与证据追踪的 LLM 流水线，配套
+      <span class="mono-chip mono-chip--outline">900+ regression tests</span>，并在意让模型行为
+      <span class="mono-chip">reliable</span>、<span class="mono-chip">controllable</span>、<span class="mono-chip">measurable</span>。</p>
+    <p class="cta">
+      <InkButton href={localePath('zh', '/projects')} label="精选项目" />
+      <a class="quiet" href="/zh/blog">读博客 →</a>
+    </p>
+  </CascadeGroup>
+
+  <SectionRule no="01" title="精选项目" />
+  <div class="grid">{projects.map((p) => <ProjectCard project={p} locale="zh" featured />)}</div>
+
+  <SectionRule no="02" title="最近文章" />
+  <PostList posts={posts} locale="zh" />
+</BaseLayout>
+<style>
+  .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2.2px; color: var(--accent); font-weight: 700; margin: 40px 0 20px; }
+  .headline { font-size: clamp(32px, 5.5vw, 46px); max-width: 640px; margin-bottom: 20px; }
+  .sub { max-width: 580px; color: var(--text-2); margin-bottom: 26px; }
+  .cta { display: flex; gap: 16px; align-items: center; margin-bottom: 64px; }
+  .quiet { font-size: 14px; font-weight: 600; position: relative; padding-bottom: 3px; }
+  .quiet::after { content: ''; position: absolute; left: 0; bottom: 0; height: var(--line); width: 100%; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform .28s var(--ease-out); }
+  .quiet:hover::after { transform: scaleX(1); transform-origin: left; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-bottom: 56px; }
+</style>

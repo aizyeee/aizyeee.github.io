@@ -1,9 +1,47 @@
 ---
-// src/pages/index.astro（临时，Task 9 重写）
-import '../styles/global.css';
+// src/pages/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CascadeGroup from '../components/CascadeGroup.astro';
+import CircleAnnotation from '../components/CircleAnnotation.astro';
+import InkButton from '../components/InkButton.astro';
+import SectionRule from '../components/SectionRule.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostList from '../components/PostList.astro';
+
+const projects = (await getCollection('projects', (e) => e.id.startsWith('en/') && e.data.featured))
+  .sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
 ---
-<html lang="en"><head><meta charset="utf-8" /><title>tokens check</title></head>
-<body>
-  <h1>Serif heading 标题</h1>
-  <p>Body text with <span class="mono-chip">900+ tests</span> and <span class="mono-chip mono-chip--outline">OS × AI</span>.</p>
-</body></html>
+<BaseLayout locale="en" title="Zihao Zhang — AI systems" description="Undergrad at SJTU building reliable AI systems, heading toward OS × AI." altHref="/zh/">
+  <CascadeGroup>
+    <p class="kicker">AI SYSTEMS · SJTU ECE '28 · SHANGHAI</p>
+    <h1 class="headline">Building AI systems that hold up — heading toward
+      <CircleAnnotation delay={1150}>OS × AI</CircleAnnotation></h1>
+    <p class="sub">I'm an undergrad at Shanghai Jiao Tong University. I build LLM pipelines with retrieval, evidence tracking and
+      <span class="mono-chip mono-chip--outline">900+ regression tests</span>, and I care about making model behavior
+      <span class="mono-chip">reliable</span>, <span class="mono-chip">controllable</span>, <span class="mono-chip">measurable</span>.</p>
+    <p class="cta">
+      <InkButton href="/projects" label="Selected work" />
+      <a class="quiet" href="/blog">Read the blog →</a>
+    </p>
+  </CascadeGroup>
+
+  <SectionRule no="01" title="Selected projects" />
+  <div class="grid">{projects.map((p) => <ProjectCard project={p} locale="en" featured />)}</div>
+
+  <SectionRule no="02" title="Recent posts" />
+  <PostList posts={posts} locale="en" />
+</BaseLayout>
+<style>
+  .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2.2px; color: var(--accent); font-weight: 700; margin: 40px 0 20px; }
+  .headline { font-size: clamp(32px, 5.5vw, 46px); max-width: 640px; margin-bottom: 20px; }
+  .sub { max-width: 580px; color: var(--text-2); margin-bottom: 26px; }
+  .cta { display: flex; gap: 16px; align-items: center; margin-bottom: 64px; }
+  .quiet { font-size: 14px; font-weight: 600; position: relative; padding-bottom: 3px; }
+  .quiet::after { content: ''; position: absolute; left: 0; bottom: 0; height: var(--line); width: 100%; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform .28s var(--ease-out); }
+  .quiet:hover::after { transform: scaleX(1); transform-origin: left; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-bottom: 56px; }
+</style>

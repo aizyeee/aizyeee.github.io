@@ -15,6 +15,7 @@ EXPECTED=(
   projects/lighter/index.html
   zh/projects/contract-review/index.html
   zh/projects/lighter/index.html
+  zh/index.html
 )
 missing=0
 for f in "${EXPECTED[@]}"; do
