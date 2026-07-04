@@ -6,7 +6,7 @@ interface Props { posts: CollectionEntry<'blog'>[]; locale: Locale; }
 const { posts, locale } = Astro.props;
 const fmt = (d: Date) => d.toISOString().slice(0, 10);
 ---
-<ul class="post-list">
+<ul class="post-list cascade">
   {posts.map((p) => (
     <li>
       <a href={`/blog/${p.id}/`}>

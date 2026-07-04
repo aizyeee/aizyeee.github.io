@@ -11,10 +11,10 @@ const others = all.filter((p) => !p.data.featured);
 ---
 <BaseLayout locale="en" title="Projects — Zihao Zhang" description="Selected engineering work." altHref="/zh/projects">
   <SectionRule no="01" title="Projects" />
-  <div class="grid">{featured.map((p) => <ProjectCard project={p} locale="en" featured />)}</div>
+  <div class="grid cascade">{featured.map((p) => <ProjectCard project={p} locale="en" featured />)}</div>
   {others.length > 0 && <>
     <SectionRule no="—" title="Other projects" />
-    <div class="grid">{others.map((p) => <ProjectCard project={p} locale="en" />)}</div>
+    <div class="grid cascade">{others.map((p) => <ProjectCard project={p} locale="en" />)}</div>
   </>}
 </BaseLayout>
 <style>
