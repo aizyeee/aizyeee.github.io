@@ -8,16 +8,20 @@ const { locale, altHref } = Astro.props;
 const tr = t(locale);
 const current = Astro.url.pathname;
 const items = [
+  // 主页路径是所有路径的前缀，须精确匹配否则处处高亮
+  { href: localePath(locale, '/'), label: tr('nav.home'), exact: true },
   { href: localePath(locale, '/projects'), label: tr('nav.projects') },
   { href: localePath(locale, '/blog'), label: tr('nav.blog') },
   { href: localePath(locale, '/now'), label: tr('nav.now') },
   { href: localePath(locale, '/about'), label: tr('nav.about') },
 ];
+const isActive = (it: { href: string; exact?: boolean }) =>
+  it.exact ? current === it.href || current === `${it.href}/` : current.startsWith(it.href);
 ---
 <header class="site-header">
   <a class="logo" href={localePath(locale, '/')}>Zihao Zhang</a>
   <nav>
-    {items.map((it) => <NavLink href={it.href} label={it.label} active={current.startsWith(it.href)} />)}
+    {items.map((it) => <NavLink href={it.href} label={it.label} active={isActive(it)} />)}
     <LangSwitch locale={locale} altHref={altHref} />
   </nav>
 </header>

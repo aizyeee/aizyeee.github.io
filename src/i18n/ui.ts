@@ -3,6 +3,7 @@ export type Locale = 'en' | 'zh';
 
 export const ui = {
   en: {
+    'nav.home': 'Home',
     'nav.projects': 'Projects',
     'nav.blog': 'Blog',
     'nav.now': 'Now',
@@ -22,6 +23,7 @@ export const ui = {
     'notfound.message': 'Page not found',
   },
   zh: {
+    'nav.home': '首页',
     'nav.projects': '项目',
     'nav.blog': '博客',
     'nav.now': '此刻',
