@@ -21,13 +21,19 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   ))}
 </ul>
 <style>
-  .post-list { list-style: none; padding: 0; display: grid; gap: 4px; }
+  .post-list { list-style: none; padding: 0; display: grid; gap: 12px; }
   .post-list a {
     display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
-    padding: 12px 8px; border-radius: 8px; transition: background .2s var(--ease-out);
+    padding: 14px 18px;
+    background: var(--card);
+    border: var(--line) solid var(--ink);
+    border-radius: 10px;
+    transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out);
   }
-  .post-list a:hover { background: var(--card); }
-  .post-list a:hover .title { text-decoration: underline; }
+  .post-list a:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 5px 5px 0 0 var(--ink);
+  }
   .title { font-weight: 600; }
   .meta { display: flex; gap: 8px; align-items: baseline; font-size: 13px; color: var(--text-3); flex-shrink: 0; }
 </style>
