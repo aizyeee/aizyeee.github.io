@@ -18,10 +18,11 @@ description: Use when building or extending any page/component on Zihao Zhang's 
 | `--bg` | `#F7F4EE` | 页面底色，米白 |
 | `--surface` | `#CDCAE0` | 淡薰衣草，大色块（卡片交替底色） |
 | `--purple-mid` | `#8A82C9` | 中紫，插画/次级点缀（目前较少直接用） |
-| `--accent` | `#5E6AD2` | 交互紫，链接/按钮反馈/高亮 |
+| `--accent` | `#5E6AD2` | 交互紫（**装饰用**）：InkButton 硬投影、LangSwitch hover 背景等；**不作小字文字色**（对比度 4.28:1，不足 WCAG AA 4.5） |
+| `--accent-ink` | `#5460CC` | 深靛（**文字用**）：kicker、项目卡分类小标、LangSwitch 静态态等 ≤14px 紫色文字；从 `--accent` 深化派生，非新色相，对比度 4.88:1 |
 | `--ink` | `#1C1917` | 墨色，正文字/线条/描边 |
 | `--card` | `#FFFFFF` | 白卡片 |
-| `--text-2` / `--text-3` | `#44403C` / `#78716C` | 次级文字（从墨色派生，非新色相） |
+| `--text-2` / `--text-3` | `#44403C` / `#746D67` | 次级文字（从墨色派生，非新色相）；`--text-3` 深化自 `#78716C`，保 13.5px 摘要文字达 4.5:1 |
 | `--border` | `#E7E2D8` | 极浅分隔线 |
 
 ## 字体系统
@@ -77,6 +78,7 @@ SVG 视觉出血约 10px 到容器外（笔画本身比文字略宽），给 `.a
 ## Common Mistakes
 
 - 加新强调手法时想直接换个颜色 → 先想能不能用线条/描边/圈注表达，颜色不够用是设计约束不是疏漏。
+- 把 `--accent` 直接当小字文字色用（kicker、分类小标、元信息这类 ≤14px 紫色文字）→ 用 `--accent-ink`。`--accent` 是装饰色（按钮硬投影、hover 背景等），作小字文字色对比度不够 AA。
 - 给中文标题引入更"好看"的中文 webfont → 不要，系统字体栈是性能优先的刻意选择。
 - 新组件的悬停效果只变个颜色，没有位移/形变 → 参考 InkButton/OffsetCard 的"位移+硬投影"手法，悬停反馈应有实体动作感，不只是变色。
 - 圈注或类似路径动画，图省事用固定数字当 `stroke-dasharray` → 必须 `getTotalLength()` 运行时取值。

@@ -4,10 +4,11 @@
   --surface: #CDCAE0;
   --purple-mid: #8A82C9;
   --accent: #5E6AD2;
+  --accent-ink: #5460CC;    /* 文字级深靛：小字（≤12px）作文字色时用它，保 WCAG AA 4.5 */
   --ink: #1C1917;
   --card: #FFFFFF;
   --text-2: #44403C;
-  --text-3: #78716C;
+  --text-3: #746D67;        /* 深化自 #78716C：13.5px 摘要文字达 4.5:1 */
   --border: #E7E2D8;
 
   --font-serif: 'Source Serif 4 Variable', Georgia, 'Songti SC', 'Noto Serif CJK SC', serif;

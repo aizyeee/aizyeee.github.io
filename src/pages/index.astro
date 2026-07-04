@@ -33,7 +33,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   </CascadeGroup>
 </BaseLayout>
 <style>
-  .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2.2px; color: var(--accent); font-weight: 700; margin: 40px 0 20px; }
+  .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2.2px; color: var(--accent-ink); font-weight: 700; margin: 40px 0 20px; }
   .headline { font-size: clamp(32px, 5.5vw, 46px); max-width: 640px; margin-bottom: 20px; }
   .sub { max-width: 580px; color: var(--text-2); margin-bottom: 26px; }
   .cta { display: flex; gap: 16px; align-items: center; margin-bottom: 64px; }
