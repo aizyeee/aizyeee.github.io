@@ -29,20 +29,6 @@ code, pre { font-family: var(--font-mono); }
 }
 .mono-chip--outline { background: var(--card); border: 1px solid var(--ink); }
 
-/* Linear 式级联进场：.cascade 容器滚入视口后依次浮现直接子元素（首屏用 CascadeGroup 包裹，
-   首屏以下的区块直接把 .cascade 加在已有的 .grid / .post-list 容器上，无需额外包一层） */
-@keyframes rise-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-.cascade > * { opacity: 0; }
-.cascade.in-view > * { animation: rise-in .7s var(--ease-out) forwards; }
-.cascade.in-view > *:nth-child(1) { animation-delay: .05s; }
-.cascade.in-view > *:nth-child(2) { animation-delay: .18s; }
-.cascade.in-view > *:nth-child(3) { animation-delay: .32s; }
-.cascade.in-view > *:nth-child(4) { animation-delay: .46s; }
-.cascade.in-view > *:nth-child(5) { animation-delay: .62s; }
-.cascade.in-view > *:nth-child(n+6) { animation-delay: .78s; }
-/* JS 未执行前（或被禁用）的兜底：见 BaseLayout 里的 <noscript> */
-@media (prefers-reduced-motion: reduce) { .cascade > * { opacity: 1; animation: none; } }
-
 /* 动效全局降级：spec §4.4 */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

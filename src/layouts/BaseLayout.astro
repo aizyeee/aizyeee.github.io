@@ -26,21 +26,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <link rel="alternate" type="application/rss+xml" title="Blog RSS" href="/rss.xml" />
-    <noscript><style>.cascade > * { opacity: 1 !important; animation: none !important; }</style></noscript>
   </head>
   <body>
     <SiteHeader locale={locale} altHref={altHref} />
     <main><slot /></main>
     <SiteFooter />
-    <script>
-      // 级联进场：全站共用一个 IntersectionObserver，任何页面里带 .cascade 类的容器
-      // （CascadeGroup 包裹的首屏区块，或直接加在 .grid / .post-list 上的首屏以下区块）
-      // 滚入视口时依次浮现其直接子元素，动画本身在 global.css 里定义。
-      const io = new IntersectionObserver((entries) => {
-        for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-      }, { threshold: 0.15 });
-      document.querySelectorAll('.cascade').forEach((el) => io.observe(el));
-    </script>
   </body>
 </html>
 <style>

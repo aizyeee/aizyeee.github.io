@@ -2,6 +2,7 @@
 // src/pages/zh/projects/index.astro
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CascadeGroup from '../../../components/CascadeGroup.astro';
 import SectionRule from '../../../components/SectionRule.astro';
 import ProjectCard from '../../../components/ProjectCard.astro';
 const all = (await getCollection('projects', (e) => e.id.startsWith('zh/')))
@@ -10,12 +11,14 @@ const featured = all.filter((p) => p.data.featured);
 const others = all.filter((p) => !p.data.featured);
 ---
 <BaseLayout locale="zh" title="项目 — 张子灏" description="精选工程项目。" altHref="/projects">
-  <SectionRule no="01" title="项目" />
-  <div class="grid cascade">{featured.map((p) => <ProjectCard project={p} locale="zh" featured />)}</div>
-  {others.length > 0 && <>
-    <SectionRule no="—" title="其他项目" />
-    <div class="grid cascade">{others.map((p) => <ProjectCard project={p} locale="zh" />)}</div>
-  </>}
+  <CascadeGroup>
+    <SectionRule no="01" title="项目" />
+    <div class="grid">{featured.map((p) => <ProjectCard project={p} locale="zh" featured />)}</div>
+    {others.length > 0 && <>
+      <SectionRule no="—" title="其他项目" />
+      <div class="grid">{others.map((p) => <ProjectCard project={p} locale="zh" />)}</div>
+    </>}
+  </CascadeGroup>
 </BaseLayout>
 <style>
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-bottom: 40px; }

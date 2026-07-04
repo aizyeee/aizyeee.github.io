@@ -1,5 +1,21 @@
 ---
 // src/components/CascadeGroup.astro
-// 级联进场样式在 src/styles/global.css（.cascade），触发脚本在 BaseLayout（全站共用一个 IntersectionObserver）。
+// Linear 式级联进场：纯 CSS、无 JS 依赖，页面加载后子元素按从上往下的顺序依次浮现。
+// 每页只用一个 CascadeGroup 包住全部内容，保证整页是同一条时间轴，而不是各区块各自浮现。
 ---
 <div class="cascade"><slot /></div>
+<style>
+  @keyframes rise-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+  .cascade > :global(*:not(script)) { opacity: 0; animation: rise-in .7s var(--ease-out) forwards; }
+  /* 阶梯延迟：.05 .18 .32 .46 .62 .78 .94 1.1s，超过 8 个的子元素统一 1.1s。
+     of :not(script)：Astro 会把组件脚本注入为 <script> 子元素，须排除计数否则延迟错位 */
+  .cascade > :global(:nth-child(1 of :not(script))) { animation-delay: .05s; }
+  .cascade > :global(:nth-child(2 of :not(script))) { animation-delay: .18s; }
+  .cascade > :global(:nth-child(3 of :not(script))) { animation-delay: .32s; }
+  .cascade > :global(:nth-child(4 of :not(script))) { animation-delay: .46s; }
+  .cascade > :global(:nth-child(5 of :not(script))) { animation-delay: .62s; }
+  .cascade > :global(:nth-child(6 of :not(script))) { animation-delay: .78s; }
+  .cascade > :global(:nth-child(7 of :not(script))) { animation-delay: .94s; }
+  .cascade > :global(:nth-child(n+8 of :not(script))) { animation-delay: 1.1s; }
+  @media (prefers-reduced-motion: reduce) { .cascade > :global(*) { opacity: 1; animation: none; } }
+</style>
