@@ -3,7 +3,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReadingProgress from '../../components/ReadingProgress.astro';
-import { t, localePath } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -11,14 +11,16 @@ export async function getStaticPaths() {
 }
 const { post } = Astro.props;
 const { Content } = await render(post);
-const lang = post.data.lang;
-const tr = t(lang);
+// 文章正文语言（post.data.lang）只是内容自身的属性，只用来在列表页显示 EN/中 标签；
+// 不驱动站点 UI 语言——详情页只有单一规范 URL（不分 /zh 镜像），始终挂在无前缀
+// 的英文路由树下，chrome 固定用 en，这样点开一篇中文占位文章不会把整站导航"切换"成中文状态。
+const tr = t('en');
 ---
-<BaseLayout locale={lang} title={`${post.data.title} — Zihao Zhang`} description={post.data.description}
-  altHref={localePath(lang === 'en' ? 'zh' : 'en', '/blog')}>
+<BaseLayout locale="en" title={`${post.data.title} — Zihao Zhang`} description={post.data.description}
+  altHref="/zh/blog">
   <ReadingProgress />
-  <article class="post">
-    <a class="back" href={localePath(lang, '/blog')}>← {tr('post.back')}</a>
+  <article class="post" lang={post.data.lang === 'zh' ? 'zh-CN' : 'en'}>
+    <a class="back" href="/blog">← {tr('post.back')}</a>
     <h1>{post.data.title}</h1>
     <p class="meta">
       <time>{post.data.date.toISOString().slice(0, 10)}</time>
