@@ -37,9 +37,10 @@ description: Use when building or extending any page/component on Zihao Zhang's 
 
 **等宽高亮 chip**（术语、量化数据用，如 `900+ regression tests`、`OS × AI`）：
 ```css
-.mono-chip { font-family: var(--font-mono); font-size: .85em; background: var(--surface); padding: 2px 9px; border-radius: 5px; }
-.mono-chip--outline { background: var(--card); border: 1px solid var(--ink); } /* 次级变体：白底+墨描边，用于强调但非最高优先级的标签 */
+.mono-chip { font-family: var(--font-mono); font-size: .85em; background: var(--surface); border: var(--line) solid var(--ink); padding: 2px 9px; border-radius: 5px; }
+.mono-chip--outline { background: var(--card); } /* 次级变体：换底色，不换描边——两种变体共用同一条墨色边框 */
 ```
+两种变体**都有墨色描边**，只用底色（`--surface` 紫 / `--card` 白）区分强调层级，边框本身不作为差异维度——否则在 `OffsetCard` 的 `lavender` 变体上会出现"紫底 chip 无边框、白底 chip 有边框"的不对称观感（紫底 chip 会和卡片背景糊在一起，白底 chip 却被强描边勾出来）。
 
 ## 线条语言组件（签名 vs 配角）
 
@@ -94,5 +95,6 @@ SVG 视觉出血约 10px 到容器外（笔画本身比文字略宽），给 `.a
 - 给中文标题引入更"好看"的中文 webfont → 不要，系统字体栈是性能优先的刻意选择。
 - 新组件的悬停效果只变个颜色，没有位移/形变 → 参考 InkButton/OffsetCard 的"位移+硬投影"手法，悬停反馈应有实体动作感，不只是变色。
 - 想让新容器和已有卡片"气质有区别"就想发明新 hover 手法 → 先只换静态底色（`--card` / `--surface` / `--bg`）。同一"位移+硬投影"配三种底色能读出显著气质差异（实体 vs 轮廓），不必新造 CSS 规则。
+- 同一组强调元素（如 chip 的紫底/白底两种变体）只给其中一种加描边 → 两者应共用同一条边框语言，只用底色区分层级。否则两者叠在同色系容器上会出现"一个融进背景、一个被强行勾出来"的不对称，尤其当容器本身也在 `--card`/`--surface` 间切换时会放大这种割裂。
 - 圈注或类似路径动画，图省事用固定数字当 `stroke-dasharray` → 必须 `getTotalLength()` 运行时取值。
 - 新页面/区块的进场动画各自触发（比如各自套一层 IntersectionObserver）→ 整页应共享一条 CascadeGroup 时间轴。

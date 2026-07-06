@@ -17,7 +17,9 @@ h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; line-height: 
 a { color: inherit; text-decoration: none; }
 code, pre { font-family: var(--font-mono); }
 
-/* 等宽 chip：spec §4.2 两种变体 */
+/* 等宽 chip：spec §4.2 两种变体。两者共用同一条墨色描边（--line），
+   只靠底色区分强调层级——避免紫色底"素面朝天"、白色底"描边强调"这种
+   不对称：同一底色系统里配色元素的边框语言应该一致。 */
 .mono-chip {
   font-family: var(--font-mono);
   font-size: .85em;
@@ -26,8 +28,9 @@ code, pre { font-family: var(--font-mono); }
   padding: 2px 9px;
   border-radius: 5px;
   white-space: nowrap;
+  border: var(--line) solid var(--ink);
 }
-.mono-chip--outline { background: var(--card); border: 1px solid var(--ink); }
+.mono-chip--outline { background: var(--card); }
 
 /* 动效全局降级：spec §4.4 */
 @media (prefers-reduced-motion: reduce) {
