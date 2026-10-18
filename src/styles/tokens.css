@@ -1,10 +1,9 @@
-/* src/styles/tokens.css — 色值与 spec §4.1 逐字一致，5 色相封顶 */
+/* src/styles/tokens.css — 当前色板的唯一来源，不另加蓝色强调 */
 :root {
   --bg: #F7F4EE;
   --surface: #CDCAE0;
   --purple-mid: #8A82C9;
-  --accent: #5E6AD2;
-  --accent-ink: #5460CC;    /* 文字级深靛：小字（≤12px）作文字色时用它，保 WCAG AA 4.5 */
+  --accent: var(--surface); /* 强调色统一使用现有薰衣草紫 */
   --ink: #1C1917;
   --card: #FFFFFF;
   --text-2: #44403C;

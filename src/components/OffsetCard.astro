@@ -9,6 +9,7 @@ const Tag = href ? 'a' : 'div';
 </Tag>
 <style>
   .offset-card {
+    --card-label: var(--accent);
     display: block;
     background: var(--card);
     border: var(--line) solid var(--ink);
@@ -16,7 +17,7 @@ const Tag = href ? 'a' : 'div';
     padding: 20px 22px;
     transition: all .22s var(--ease-out);
   }
-  .offset-card.lavender { background: var(--surface); }
+  .offset-card.lavender { --card-label: var(--card); background: var(--surface); }
   .offset-card:hover {
     transform: translate(-3px, -3px);
     box-shadow: 5px 5px 0 0 var(--ink);
