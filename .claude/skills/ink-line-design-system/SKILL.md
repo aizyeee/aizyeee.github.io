@@ -17,8 +17,8 @@ description: Use when building or extending any page/component on Zihao Zhang's 
 |---|---|---|
 | `--bg` | `#F7F4EE` | 页面底色，米白 |
 | `--surface` | `#CDCAE0` | 淡薰衣草，大色块（卡片交替底色） |
-| `--purple-mid` | `#8A82C9` | 中紫文字强调：语言切换按钮文字与边框、首页 kicker、白卡状态文字；也可作点缀 |
-| `--accent` | `var(--surface)`，即 `#CDCAE0` | 淡紫装饰：按钮硬投影、语言切换 hover 背景 |
+| `--purple-mid` | `#8A82C9` | 语言切换按钮文字、边框与 hover 底色；首页 kicker、白卡状态文字；也可作点缀 |
+| `--accent` | `var(--surface)`，即 `#CDCAE0` | 淡紫装饰：InkButton 硬投影 |
 | `--ink` | `#1C1917` | 墨色，正文字/线条/描边 |
 | `--card` | `#FFFFFF` | 白卡片 |
 | `--text-2` / `--text-3` | `#44403C` / `#746D67` | 次级文字（从墨色派生，非新色相）；`--text-3` 深化自 `#78716C`，保 13.5px 摘要文字达 4.5:1 |
@@ -27,6 +27,7 @@ description: Use when building or extending any page/component on Zihao Zhang's 
 **2026-10-18 作者确认**：大片淡薰衣草背景保持 `#CDCAE0`，紫色文字使用现有中紫 `#8A82C9`，蓝紫继续弃用，不恢复旧 `--accent-ink` 分支。
 项目状态文字跟随卡片底色：白卡用 `--purple-mid`，紫卡用 `--card` 白色；由 `OffsetCard` 的 `--card-label` 传递。
 `--accent` 保留为淡紫装饰用途，标签底色仍用 `--surface`，正文继续使用墨色。
+语言切换按钮悬停时填充中紫 `--purple-mid`，文字反白；静态背景保持透明。
 
 ## 字体系统
 
@@ -56,7 +57,8 @@ chip 有两种出场方式，间距来源不同：**内联进正文**做高亮�
 |---|---|---|
 | InkButton | `src/components/InkButton.astro` | 细墨框按钮，悬停填墨反色 + 上浮 2px + 紫色硬投影 `0 4px 0 0 var(--accent)` |
 | OffsetCard | `src/components/OffsetCard.astro` | 墨框卡片，悬停错位 `translate(-3px,-3px)` + 墨色硬投影 `5px 5px 0 0 var(--ink)`；`variant="lavender"` 用淡薰衣草底做交替 |
-| CircleAnnotation | `src/components/CircleAnnotation.astro` | 手绘圈注：SVG 描边动画圈住关键词，进场画一次 + **每次 mouseenter 重画**。用户最强偏好的元素，新页面若要强调 1-2 个关键词，优先用它而不是加粗/变色 |
+| CircleAnnotation | `src/components/CircleAnnotation.astro` | 手绘圈注：SVG 描边动画圈住关键词，进场画一次 + **每次 mouseenter 重画**；适合圈注强调，404 页继续使用 |
+| UnderlineAnnotation | `src/components/UnderlineAnnotation.astro` | 首页 OS × AI 的手绘下划线：略有起伏的一笔由左向右绘制，最右端向左短回勾；进场绘制 + 悬停重画 |
 
 **配角**（简单实用，辅助结构）：NavLink 动态下划线（`scaleX` 从右到左收起、悬停从左到右展开）、SectionRule 编号+标尺线（滚入视口时 `scaleX(.25)→scaleX(1)`）、CornerFrame 四角括号框（悬停时四个 18px 直角"生长"为完整边框，`transition: all .7s`，用于 Now 页这类"数据高亮"场景）。
 
@@ -86,6 +88,9 @@ path.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], {
 });
 ```
 SVG 视觉出血约 10px 到容器外（笔画本身比文字略宽），给 `.anno` 加 `margin-inline: .18em` 让邻词不被挤压。
+
+`UnderlineAnnotation` 同样用 `getTotalLength() + 4` 计算路径长度，并保留 CSS 与 JS 双层减少动效支持。
+下划线为一条连续路径，先向右绘制再回勾；使用圆头、圆角及轻微不规则曲线，不改为笔直的 CSS 边框。
 
 ## 动效参数
 

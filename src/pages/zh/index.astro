@@ -3,7 +3,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CascadeGroup from '../../components/CascadeGroup.astro';
-import CircleAnnotation from '../../components/CircleAnnotation.astro';
+import UnderlineAnnotation from '../../components/UnderlineAnnotation.astro';
 import InkButton from '../../components/InkButton.astro';
 import SectionRule from '../../components/SectionRule.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
@@ -20,7 +20,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 <BaseLayout locale="zh" title="张子灏 — heading toward OS × AI" description="我是上海交通大学的本科生。" altHref="/">
   <CascadeGroup>
     <p class="kicker">AI SYSTEMS · SJTU ECE '28 · SHANGHAI</p>
-    <h1 class="headline">heading toward{' '}<CircleAnnotation delay={1150}>OS × AI</CircleAnnotation></h1>
+    <h1 class="headline">heading toward{' '}<UnderlineAnnotation delay={1150}>OS × AI</UnderlineAnnotation></h1>
     <p class="sub">我是上海交通大学的本科生。</p>
     <p class="cta">
       <InkButton href={localePath('zh', '/projects')} label="精选项目" />
