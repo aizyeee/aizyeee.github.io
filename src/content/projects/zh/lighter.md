@@ -7,6 +7,7 @@ summary: "Placeholder summary for the cyberpunk side-scrolling action game."
 tech: [Elm, Messenger, elm-regl]
 metrics: ["162 Elm modules", "24k LOC"]
 featured: true
+draft: true
 order: 2
 ---
 ## 背景与动机

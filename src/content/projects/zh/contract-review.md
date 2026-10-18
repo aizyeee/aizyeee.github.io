@@ -7,6 +7,7 @@ summary: "End-to-end AI review system around LLM + vector retrieval."
 tech: [Python, RAG, pytest]
 metrics: ["900+ regression tests", "end-to-end Word write-back"]
 featured: true
+draft: true
 order: 1
 ---
 ## 背景与动机

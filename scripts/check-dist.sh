@@ -10,10 +10,6 @@ EXPECTED=(
   rss.xml
   projects/index.html
   zh/projects/index.html
-  projects/contract-review/index.html
-  projects/lighter/index.html
-  zh/projects/contract-review/index.html
-  zh/projects/lighter/index.html
   zh/index.html
   now/index.html
   zh/now/index.html

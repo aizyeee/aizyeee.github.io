@@ -5,7 +5,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CascadeGroup from '../../components/CascadeGroup.astro';
 import SectionRule from '../../components/SectionRule.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-const all = (await getCollection('projects', (e) => e.id.startsWith('en/')))
+import ProjectPlaceholder from '../../components/ProjectPlaceholder.astro';
+const all = (await getCollection('projects', (e) => e.id.startsWith('en/') && !e.data.draft))
   .sort((a, b) => a.data.order - b.data.order);
 const featured = all.filter((p) => p.data.featured);
 const others = all.filter((p) => !p.data.featured);
@@ -13,7 +14,9 @@ const others = all.filter((p) => !p.data.featured);
 <BaseLayout locale="en" title="Projects — Zihao Zhang" description="Selected engineering work." altHref="/zh/projects">
   <CascadeGroup>
     <SectionRule no="01" title="Projects" />
-    <div class="grid">{featured.map((p) => <ProjectCard project={p} locale="en" featured />)}</div>
+    <div class="grid">{all.length > 0
+      ? featured.map((p) => <ProjectCard project={p} locale="en" featured />)
+      : [1, 2].map((number) => <ProjectPlaceholder locale="en" number={number} />)}</div>
     {others.length > 0 && <>
       <SectionRule no="—" title="Other projects" />
       <div class="grid">{others.map((p) => <ProjectCard project={p} locale="en" />)}</div>

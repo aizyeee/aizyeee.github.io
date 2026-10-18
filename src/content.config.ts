@@ -25,6 +25,7 @@ const projects = defineCollection({
     tech: z.array(z.string()),
     metrics: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
     order: z.number().default(99),
     cover: z.string().optional(),
   }),

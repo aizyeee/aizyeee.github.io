@@ -7,27 +7,28 @@ import CircleAnnotation from '../components/CircleAnnotation.astro';
 import InkButton from '../components/InkButton.astro';
 import SectionRule from '../components/SectionRule.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import ProjectPlaceholder from '../components/ProjectPlaceholder.astro';
 import PostList from '../components/PostList.astro';
 
-const projects = (await getCollection('projects', (e) => e.id.startsWith('en/') && e.data.featured))
+const projects = (await getCollection('projects', (e) => e.id.startsWith('en/') && e.data.featured && !e.data.draft))
   .sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 5);
 ---
-<BaseLayout locale="en" title="Zihao Zhang — AI systems" description="Undergrad at SJTU building reliable AI systems, heading toward OS × AI." altHref="/zh/">
+<BaseLayout locale="en" title="Zihao Zhang — heading toward OS × AI" description="I'm an undergrad at Shanghai Jiao Tong University." altHref="/zh/">
   <CascadeGroup>
     <p class="kicker">AI SYSTEMS · SJTU ECE '28 · SHANGHAI</p>
-    <h1 class="headline">Building AI systems that hold up — heading toward{' '}<CircleAnnotation delay={1150}>OS × AI</CircleAnnotation></h1>
-    <p class="sub">I'm an undergrad at Shanghai Jiao Tong University. I build LLM pipelines with retrieval, evidence tracking and
-      <span class="mono-chip mono-chip--outline">900+ regression tests</span>, and I care about making model behavior
-      <span class="mono-chip">reliable</span>, <span class="mono-chip">controllable</span>, <span class="mono-chip">measurable</span>.</p>
+    <h1 class="headline">heading toward{' '}<CircleAnnotation delay={1150}>OS × AI</CircleAnnotation></h1>
+    <p class="sub">I'm an undergrad at Shanghai Jiao Tong University.</p>
     <p class="cta">
       <InkButton href="/projects" label="Selected work" />
       <a class="quiet" href="/blog">Read the blog →</a>
     </p>
     <SectionRule no="01" title="Selected projects" />
-    <div class="grid">{projects.map((p) => <ProjectCard project={p} locale="en" featured />)}</div>
+    <div class="grid">{projects.length > 0
+      ? projects.map((p) => <ProjectCard project={p} locale="en" featured />)
+      : [1, 2].map((number) => <ProjectPlaceholder locale="en" number={number} />)}</div>
     <SectionRule no="02" title="Recent posts" />
     <PostList posts={posts} locale="en" />
   </CascadeGroup>

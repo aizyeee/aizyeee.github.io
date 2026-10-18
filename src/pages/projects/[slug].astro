@@ -5,13 +5,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReadingProgress from '../../components/ReadingProgress.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects', (e) => e.id.startsWith('en/'));
+  const projects = await getCollection('projects', (e) => e.id.startsWith('en/') && !e.data.draft);
   return projects.map((p) => ({ params: { slug: p.id.split('/')[1] }, props: { project: p } }));
 }
 const { project } = Astro.props;
 const { Content } = await render(project);
 const slug = project.id.split('/')[1];
-const zhTwin = await getCollection('projects', (e) => e.id === `zh/${slug}`);
+const zhTwin = await getCollection('projects', (e) => e.id === `zh/${slug}` && !e.data.draft);
 const altHref = zhTwin.length > 0 ? `/zh/projects/${slug}` : '/zh/projects';
 ---
 <BaseLayout locale="en" title={`${project.data.title} — Zihao Zhang`} description={project.data.summary}

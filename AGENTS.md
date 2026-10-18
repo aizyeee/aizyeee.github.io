@@ -12,7 +12,7 @@
 
 - **当前主域名**：<https://aizyeee.com>。作者已在 Cloudflare 购买该域名并完成网站部署；2026-10-18 实测 HTTPS 首页返回 200。
 - **仓库**：`aizyeee/aizyeee.github.io`。原 GitHub Pages 地址 <https://aizyeee.github.io> 当前仍可访问，但对外入口以 `aizyeee.com` 为准。
-- **形态**：Astro 静态站，中英双语，约 21 条构建路由
+- **形态**：Astro 静态站，中英双语，当前 17 条构建路由（项目详情暂不公开）
 - **日常发布工作流**：改 `.md` / 组件 → `git push` 到 `main` → Cloudflare Workers Builds 自动构建并发布到 `aizyeee.com`。仓库内的 GitHub Actions 同时独立更新原 GitHub Pages 站点。
 
 ## 技术栈
@@ -35,10 +35,10 @@ npm run preview    # 本地预览构建产物
 构建后务必跑一次产物断言（本项目的「回归测试」）：
 
 ```sh
-npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 21 routes present
+npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 17 routes present
 ```
 
-`check-dist.sh` 除了断言 21 条路由存在，还有两条**负向断言**：不允许 dev 页泄漏进生产、
+`check-dist.sh` 除了断言 17 条路由存在，还有两条**负向断言**：不允许 dev 页泄漏进生产、
 不允许 blog 出现 `/zh/blog/[slug]/` 镜像（blog 是单 canonical URL 设计，见下）。改了路由结构就同步更新这个脚本。
 
 > ⚠️ 实操坑：本机 shell 里 `astro` 常不在 PATH（`command not found: astro`）。
@@ -68,7 +68,7 @@ npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 21 routes pre
 | 内容类型 | 放哪 | 关键 frontmatter |
 |---|---|---|
 | 博客 | `src/content/blog/*.md` | `title` `date` `lang(en\|zh)` `tags[]` `description` `draft?` |
-| 项目（英） | `src/content/projects/en/*.md` | `title` `period` `role` `summary` `tech[]` `metrics[]` `featured?` `order?` |
+| 项目（英） | `src/content/projects/en/*.md` | `title` `period` `role` `summary` `tech[]` `metrics[]` `featured?` `draft?` `order?` |
 | 项目（中） | `src/content/projects/zh/*.md` | 同上，与英文版同名成对 |
 | Now | `src/content/now/{en,zh}.md` | `updated` |
 
@@ -77,6 +77,10 @@ npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 21 routes pre
 `<article lang>` 属性），**不驱动站点 UI 语言**——点开一篇中文博客，站点导航仍是英文态，
 不会把整站「切换」成中文。作者未来可能只用中文写博客，需要英文版的读者用浏览器翻译即可，
 不做人工中英对照。项目详情页则相反，是中英成对的两条真实路由。
+
+**当前公开内容策略（2026-10-18）**：首页标题仅保留 `heading toward OS × AI`，介绍仅保留 SJTU 本科生身份。
+现有项目均标记 `draft: true`，从首页、项目列表、详情路由及 sitemap 中排除；无公开项目时显示通用占位卡片。
+后续确认内容准确后再移除对应中英文稿的 `draft: true`，并同步更新 `scripts/check-dist.sh` 的详情路由断言。
 
 被 `.gitignore` 忽略、留在本地不进仓库的个人文件：`张子灏_技术简历.pdf`、`自我介绍.md`、
 `内容维护指南.md`、`discussion.md`、`CHANGELOG.md`。别手滑 `git add -A` 把它们带进仓库。

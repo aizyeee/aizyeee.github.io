@@ -1,0 +1,22 @@
+---
+import OffsetCard from './OffsetCard.astro';
+import type { Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; number: number; }
+const { locale, number } = Astro.props;
+const copy = locale === 'zh'
+  ? { status: '内容整理中', title: '项目', summary: '项目内容正在整理，稍后补充。', tag: '敬请期待' }
+  : { status: 'In preparation', title: 'Project', summary: 'Project details are being prepared.', tag: 'Coming soon' };
+---
+<OffsetCard variant={number % 2 === 0 ? 'lavender' : 'white'}>
+  <p class="cat">{copy.status}</p>
+  <h4>{copy.title} {String(number).padStart(2, '0')}</h4>
+  <p class="summary">{copy.summary}</p>
+  <p class="chips"><span class="mono-chip mono-chip--outline">{copy.tag}</span></p>
+</OffsetCard>
+<style>
+  .cat { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-ink); font-weight: 700; margin-bottom: 8px; }
+  h4 { font-size: 17px; margin-bottom: 6px; }
+  .summary { font-size: 13.5px; color: var(--text-3); line-height: 1.6; margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+</style>
