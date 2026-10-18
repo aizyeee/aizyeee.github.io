@@ -3,7 +3,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CascadeGroup from '../components/CascadeGroup.astro';
-import UnderlineAnnotation from '../components/UnderlineAnnotation.astro';
 import InkButton from '../components/InkButton.astro';
 import SectionRule from '../components/SectionRule.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -19,7 +18,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 <BaseLayout locale="en" title="Zihao Zhang — heading toward OS × AI" description="I'm an undergrad at Shanghai Jiao Tong University." altHref="/zh/">
   <CascadeGroup>
     <p class="kicker">AI SYSTEMS · SJTU ECE '28 · SHANGHAI</p>
-    <h1 class="headline">heading toward{' '}<UnderlineAnnotation delay={1150}>OS × AI</UnderlineAnnotation></h1>
+    <h1 class="headline">heading toward{' '}<span class="headline-topic">OS × AI</span></h1>
     <p class="sub">I'm an undergrad at Shanghai Jiao Tong University.</p>
     <p class="cta">
       <InkButton href="/projects" label="Selected work" />
@@ -36,6 +35,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 <style>
   .kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2.2px; color: var(--purple-mid); font-weight: 700; margin: 40px 0 40px; }
   .headline { font-size: clamp(32px, 5.5vw, 46px); max-width: 640px; margin-bottom: 40px; }
+  .headline-topic { display: inline-block; white-space: nowrap; margin-inline: .04em; }
   .sub { max-width: 580px; color: var(--text-2); margin-bottom: 26px; }
   .cta { display: flex; gap: 16px; align-items: center; margin-bottom: 64px; }
   .quiet { font-size: 14px; font-weight: 600; position: relative; padding-bottom: 3px; }

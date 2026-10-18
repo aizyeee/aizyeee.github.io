@@ -58,7 +58,8 @@ chip 有两种出场方式，间距来源不同：**内联进正文**做高亮�
 | InkButton | `src/components/InkButton.astro` | 细墨框按钮，悬停填墨反色 + 上浮 2px + 紫色硬投影 `0 4px 0 0 var(--accent)` |
 | OffsetCard | `src/components/OffsetCard.astro` | 墨框卡片，悬停错位 `translate(-3px,-3px)` + 墨色硬投影 `5px 5px 0 0 var(--ink)`；`variant="lavender"` 用淡薰衣草底做交替 |
 | CircleAnnotation | `src/components/CircleAnnotation.astro` | 手绘圈注：SVG 描边动画圈住关键词，进场画一次 + **每次 mouseenter 重画**；适合圈注强调，404 页继续使用 |
-| UnderlineAnnotation | `src/components/UnderlineAnnotation.astro` | 首页 OS × AI 的手绘下划线：略有起伏的一笔由左向右绘制，最右端向左短回勾；进场绘制 + 悬停重画 |
+
+**首页标题例外（2026-10-18 作者确认）**：`OS × AI` 暂时只保留文字，不添加圈注或下划线，等待作者重新设计。
 
 **配角**（简单实用，辅助结构）：NavLink 动态下划线（`scaleX` 从右到左收起、悬停从左到右展开）、SectionRule 编号+标尺线（滚入视口时 `scaleX(.25)→scaleX(1)`）、CornerFrame 四角括号框（悬停时四个 18px 直角"生长"为完整边框，`transition: all .7s`，用于 Now 页这类"数据高亮"场景）。
 
@@ -88,9 +89,6 @@ path.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], {
 });
 ```
 SVG 视觉出血约 10px 到容器外（笔画本身比文字略宽），给 `.anno` 加 `margin-inline: .18em` 让邻词不被挤压。
-
-`UnderlineAnnotation` 同样用 `getTotalLength() + 4` 计算路径长度，并保留 CSS 与 JS 双层减少动效支持。
-下划线为一条连续路径，先向右绘制再回勾；使用圆头、圆角及轻微不规则曲线，不改为笔直的 CSS 边框。
 
 ## 动效参数
 

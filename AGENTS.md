@@ -97,8 +97,8 @@ npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 17 routes pre
   `--accent` 仅作装饰，继续引用淡紫 `--surface`（InkButton 硬投影）；蓝紫及旧 `--accent-ink` 分支弃用。
 - **禁止引入中文 webfont**：中文一律吃系统字体栈，只有拉丁字符加载自托管 variable font。这是性能取舍。
 - **签名组件优先复用而非发明**：`InkButton`（填墨反色按钮）、`OffsetCard`（位移+墨色硬投影卡片）、
-  `CircleAnnotation`（手绘圈注）、`UnderlineAnnotation`（从左向右绘制、右端向左短回勾的手绘下划线）。
-  首页 `OS × AI` 按作者要求使用下划线；其他已有圈注保留。强调关键词优先复用这些墨线组件，别加粗变色。
+  `CircleAnnotation`（手绘圈注）。首页 `OS × AI` 按作者要求暂不添加圈注或下划线，等待重新设计；
+  其他已有圈注保留。其他页面强调关键词优先复用这些墨线组件，别加粗变色。
 - **气质分层靠静态底色，不靠新 hover 语言**：同一套「位移 `translate(-3px,-3px)` + 硬投影
   `5px 5px 0 0 var(--ink)`」配不同底色即可拉开差异——`--card` 白（实体感，项目卡）/
   `--surface` 淡薰衣草（交替）/ `--bg` 米白（轮廓感，博客列表）。
@@ -109,7 +109,7 @@ npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 17 routes pre
 
 - **布局**：`BaseLayout.astro`（页头页脚 + SEO meta，`locale` prop 决定 chrome 语言）、
   `SiteHeader.astro`、`SiteFooter.astro`
-- **签名视觉**：`InkButton` `OffsetCard` `CircleAnnotation` `UnderlineAnnotation`
+- **签名视觉**：`InkButton` `OffsetCard` `CircleAnnotation`
 - **配角**：`NavLink`（动态下划线）、`SectionRule`（编号标尺线）、`CornerFrame`（四角括号框）、
   `CascadeGroup`（级联进场）、`ReadingProgress`（文章阅读进度条）
 - **内容卡片**：`ProjectCard`（首页/列表用）、`PostList`（博客列表）
