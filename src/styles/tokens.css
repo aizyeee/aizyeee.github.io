@@ -3,7 +3,7 @@
   --bg: #F7F4EE;
   --surface: #CDCAE0;
   --purple-mid: #8A82C9;
-  --accent: var(--surface); /* 强调色统一使用现有薰衣草紫 */
+  --accent: var(--surface); /* 装饰用淡紫；文字强调使用 --purple-mid */
   --ink: #1C1917;
   --card: #FFFFFF;
   --text-2: #44403C;

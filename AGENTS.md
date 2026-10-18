@@ -92,9 +92,9 @@ npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 17 routes pre
 
 - **5 色相封顶，不加新色相**。色板唯一权威来源是 `src/styles/tokens.css`。加强调优先用线条语言，
   颜色不够用是设计约束不是疏漏。
-- **强调色统一为薰衣草紫**：作者于 2026-10-18 移除蓝色强调，`--accent` 引用 `--surface #CDCAE0`。
-  语言切换按钮、首页 kicker、按钮硬投影均用此色；项目状态在白卡上用紫色、紫卡上用白色。
-  不要恢复旧的蓝色或 `--accent-ink` 分支，也不要自行另选紫色。
+- **背景淡紫、文字中紫**（2026-10-18 作者确认）：卡片和标签底色保留 `--surface #CDCAE0`；
+  语言切换按钮文字与边框、首页 kicker、白卡状态文字使用 `--purple-mid #8A82C9`，紫卡状态文字使用白色。
+  `--accent` 仅作装饰，继续引用淡紫 `--surface`（按钮硬投影、语言切换 hover 背景）；蓝紫及旧 `--accent-ink` 分支弃用。
 - **禁止引入中文 webfont**：中文一律吃系统字体栈，只有拉丁字符加载自托管 variable font。这是性能取舍。
 - **签名组件优先复用而非发明**：`InkButton`（填墨反色按钮）、`OffsetCard`（位移+墨色硬投影卡片）、
   `CircleAnnotation`（手绘圈注，作者最强偏好）。新页面强调关键词优先用圈注，别加粗变色。
@@ -137,7 +137,7 @@ npm run build && bash scripts/check-dist.sh   # 期望输出：OK: 17 routes pre
 
 - 想加新强调手法就换个颜色 → 先想线条/描边/圈注，色相已用满。
 - 给新容器发明新 hover 语言做区分 → 先只换静态底色（`--card`/`--surface`/`--bg`）。
-- 为辅助标签另加深蓝/深紫色 → 沿用作者指定的 `--accent` 薰衣草紫，卡片状态按底色紫白交替。
+- 凭颜色名称判断色值 → 核对 `tokens.css` 与具体用途；当前背景紫与中紫是两个不同的色板条目。
 - 给中文标题引入好看的中文 webfont → 不要，系统字体栈是性能优先的刻意选择。
 - 改了路由结构没同步 `scripts/check-dist.sh` → 断言会失效。
 - `git add -A` 把 `.gitignore` 里的个人文件带进仓库 → 只 add 明确的目标文件。
